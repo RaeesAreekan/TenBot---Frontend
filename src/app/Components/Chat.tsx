@@ -67,7 +67,8 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import axiosClient from '../utils/axiosClient';
+// import axiosFlaskClient from '../utils/axiosFlaskClient';
+import getAnwer from '../utils/chatApi';
 
 interface ChatMessage {
   id: number;
@@ -94,10 +95,13 @@ const Chat: React.FC = () => {
       setLoading(true)
 
       try{
-        const response = await axiosClient.post('/get_answer',{
-          question : userMessage.message
+        // const response = await axiosClient.post('/get_answer',{
+        //   question : userMessage.message
 
-        })
+        // })
+
+        const response = await getAnwer(userMessage.message)
+        console.log(response.data)
 
         const aiMessage :ChatMessage={
           id: messages.length + 2,

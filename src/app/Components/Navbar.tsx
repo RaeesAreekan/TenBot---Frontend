@@ -5,6 +5,9 @@ import Image from 'next/image';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleLogout=()=>{
+    localStorage.removeItem("token");
+  }
 
   return (
     <nav className="bg-[#F5F5F5] shadow-md">
@@ -50,7 +53,7 @@ const Navbar: React.FC = () => {
             <Link href="/about" className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
               About Us
             </Link>
-            <Link href="/pages/login" className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+            <Link href="/pages/login" className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" onClick={handleLogout}>
               Logout
             </Link>
           </div>

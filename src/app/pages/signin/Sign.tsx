@@ -1,8 +1,39 @@
-
-
+'use client'
+import axiosNodeClient from "@/app/utils/axiosNodeClient";
+import { useState } from "react";
+import {useRouter} from 'next/navigation'
 import Image from "next/image"
 import Link from "next/link"
+// import { useRouter } from "next/router";
 const Sign:React.FC = ()=>{
+
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter()
+    
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await axiosNodeClient.post("/api/auth/register", { email, password });
+            console.log("Registration Successful", response.data);
+            router.push('/pages/login')
+
+            // Handle successful registration, e.g., redirect to login
+        } catch (error:any) {
+            if(error.response && error.response.data && error.response.data.message){
+                console.log("User already Registered",error.response.data.message)
+                alert(error.response.data.message)
+            }
+            else{
+                console.error("Registration failed:", error)
+
+            }
+        }
+    };
+
+
+
     return(
         <section className="bg-[#F5F5F5]">
   <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -15,14 +46,14 @@ const Sign:React.FC = ()=>{
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Create an account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
                   <div>
                       <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                      <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
                   </div>
                   <div>
                       <label   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                      <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                   </div>
                   <div>
                       <label   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>

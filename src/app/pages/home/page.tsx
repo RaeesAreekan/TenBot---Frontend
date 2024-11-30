@@ -8,10 +8,11 @@ const inter = Inter({ subsets: ["latin"] })
 const home:React.FC = ()=>{
     return(
 
-        <html lang="en">
+        // <html lang="en">
       
       
-        <body className={inter.className}>
+        // <body className={inter.className}>
+        <>
         <Navbar/>
         <div className="flex flex-row flex-1 overflow-hidden">
         <Sidebar/>
@@ -20,8 +21,9 @@ const home:React.FC = ()=>{
         </div>
         
           {/* {children} */}
-          </body>
-      </html>
+          {/* </body> */}
+          </>
+      // </html>
 
     )
 }

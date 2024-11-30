@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Complete the frontend from here by looking GPT . Everything has already been created
 const Sidebar: React.FC = () => {
   // Dummy chat history
   const chatHistory = [
